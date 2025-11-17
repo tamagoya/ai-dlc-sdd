@@ -37,13 +37,13 @@ cd /path/to/your/project
 mkdir -p .cursor
 
 # エージェント定義ファイルをコピー
-cp /path/to/aidlc_fw/.cursor/AGENTS.md .cursor/
+cp /path/to/ai-dlc-sdd/cursor/AGENTS.md .cursor/
 
 # コマンドディレクトリを作成
 mkdir -p .cursor/commands/aidlc
 
 # コマンドファイルをコピー
-cp /path/to/aidlc_fw/.cursor/commands/*.md .cursor/commands/aidlc/
+cp /path/to/ai-dlc-sdd/cursor/commands/*.md .cursor/commands/aidlc/
 ```
 
 または、Windows PowerShellの場合：
@@ -56,13 +56,13 @@ cd C:\path\to\your\project
 New-Item -ItemType Directory -Force -Path .cursor
 
 # エージェント定義ファイルをコピー
-Copy-Item "C:\path\to\aidlc_fw\.cursor\AGENTS.md" -Destination ".cursor\"
+Copy-Item "C:\path\to\ai-dlc-sdd\cursor\AGENTS.md" -Destination ".cursor\"
 
 # コマンドディレクトリを作成
 New-Item -ItemType Directory -Force -Path .cursor\commands\aidlc
 
 # コマンドファイルをコピー
-Copy-Item "C:\path\to\.cursor\commands\*.md" -Destination ".cursor\commands\aidlc\"
+Copy-Item "C:\path\to\cursor\commands\*.md" -Destination ".cursor\commands\aidlc\"
 ```
 
 #### 2. コマンドファイルの確認
@@ -376,4 +376,5 @@ Brown-Field分析後、通常のConstruction Phaseを実行します。
 ## ライセンス
 
 このプロジェクトは、AI-DLC手法に基づいて実装されています。
+
 
