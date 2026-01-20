@@ -36,7 +36,7 @@ cd /path/to/your/project
 # .cursorディレクトリが存在しない場合は作成
 mkdir -p .cursor
 
-# エージェント定義ファイルをコピー
+# AGENTS.mdファイルをコピー（専門家の役割定義を含む）
 cp /path/to/ai-dlc-sdd/cursor/AGENTS.md .cursor/
 
 # コマンドディレクトリを作成
@@ -55,7 +55,7 @@ cd C:\path\to\your\project
 # .cursorディレクトリが存在しない場合は作成
 New-Item -ItemType Directory -Force -Path .cursor
 
-# エージェント定義ファイルをコピー
+# AGENTS.mdファイルをコピー（専門家の役割定義を含む）
 Copy-Item "C:\path\to\ai-dlc-sdd\cursor\AGENTS.md" -Destination ".cursor\"
 
 # コマンドディレクトリを作成
@@ -367,13 +367,24 @@ Brown-Field分析後、通常のConstruction Phaseを実行します。
 
 すべてのアーティファクトはリンクされ、前後のトレーサビリティが確保されます（例：ドメインモデル要素とUser Storiesの関連付け）。
 
-## エージェント
+## 専門家の役割
 
-詳細なエージェント定義については、[.cursor/AGENTS.md](cursor/AGENTS.md)を参照してください。
+詳細な専門家の役割定義については、[.cursor/AGENTS.md](cursor/AGENTS.md)を参照してください。専門家の役割は、Commands（`.cursor/commands/`）内で実装されています。
 
 ## 参考資料
 
 - [AI-DLC Method Definition](docs/AI-DLC.md) - AI-DLC手法の完全な定義
+- [Everything Claude Code統合提案](docs/INTEGRATION_PROPOSAL.md) - Everything Claude Codeのテクニック統合提案
+
+## Everything Claude Code統合
+
+このフレームワークは、[Everything Claude Code](https://github.com/affaan-m/everything-claude-code)の実践的なテクニックを統合しています：
+
+- **Rules（ルール）**: セキュリティ、テスト、パフォーマンス、コーディングスタイルのガイドライン
+- **専門家の役割**: コードレビュー、セキュリティレビュー、TDDガイドなどの専門家の役割（Commands内に統合）
+- **パフォーマンス最適化**: モデル選択戦略、コンテキストウィンドウ管理
+
+詳細は[統合提案ドキュメント](docs/INTEGRATION_PROPOSAL.md)を参照してください。
 
 ## ライセンス
 

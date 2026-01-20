@@ -119,6 +119,157 @@ AI-DLCは、AIが主導する開発ライフサイクル手法です。従来の
 - `aidlc-docs/plans/` - 改修・リファクタリング計画
 - 更新された既存アーティファクト（User Stories, Domain Models等）
 
+## 専門家の役割（Commands内で実装）
+
+以下の専門家の役割は、対応するCommands内で実装されています。Cursor公式ドキュメントのベストプラクティスに従い、エージェントを呼び出すのではなく、Commands内で直接その役割を果たすように設計されています。
+
+### 計画スペシャリスト（Planner）
+
+**実装場所**: `aidlc-inception`コマンド（ステップ1）
+
+**役割**: 包括的で実行可能な実装計画を作成することに焦点を当てた専門計画スペシャリスト
+
+**責任**:
+- 要件を分析し、詳細な実装計画を作成
+- 複雑な機能を管理可能なステップに分解
+- 依存関係と潜在的なリスクを特定
+- 最適な実装順序を提案
+- エッジケースとエラーシナリオを考慮
+
+**アーティファクト**:
+- `aidlc-docs/plans/inception_plan.md` - Inception Phaseの実装計画（チェックボックス付き）
+
+**参照**: `.cursor/commands/aidlc-inception.md`
+
+### アーキテクト（Architect）
+
+**実装場所**: `aidlc-architecture`コマンド（ステップ1, 3, 5, 6）
+
+**役割**: スケーラブルで保守可能なシステム設計を専門とする上級ソフトウェアアーキテクト
+
+**責任**:
+- 新機能のシステムアーキテクチャを設計
+- 技術的トレードオフを評価
+- パターンとベストプラクティスを推奨
+- スケーラビリティのボトルネックを特定
+- 将来の成長を計画
+- コードベース全体の一貫性を確保
+
+**アーティファクト**:
+- `aidlc-docs/design-artifacts/adrs/` - ADRs（Architecture Decision Records）
+- `aidlc-docs/design-artifacts/logical-designs/<unit-name>_logical_design.md` - 論理設計ドキュメント
+- `ARCHITECTURE/<unit-name>/` - アーキテクチャ図と設計ドキュメント
+
+**参照**: `.cursor/commands/aidlc-architecture.md`
+
+### TDD専門家（TDD Guide）
+
+**実装場所**: `aidlc-code-generation`コマンド（ステップ7）
+
+**役割**: すべてのコードがテストファーストで開発され、包括的なカバレッジを持つことを確保するテスト駆動開発（TDD）の専門家
+
+**責任**:
+- テストファーストの方法論を強制
+- TDD Red-Green-Refactorサイクルでガイド
+- 80%以上のテストカバレッジを確保
+- 包括的なテストスイート（ユニット、統合、E2E）を記述
+- 実装前にエッジケースを捕捉
+
+**アーティファクト**:
+- `BACKEND/<unit-name>/tests/` - ユニットテスト、統合テスト、E2Eテスト
+- `aidlc-docs/plans/tdd_<unit-name>_coverage_report.md` - カバレッジレポート
+
+**参照**: `.cursor/commands/aidlc-code-generation.md`
+
+### ビルドエラー解決専門家（Build Error Resolver）
+
+**実装場所**: `aidlc-code-generation`コマンド（ステップ9）、`aidlc-build-fix`コマンド
+
+**役割**: TypeScript、コンパイル、ビルドエラーを迅速かつ効率的に修正する専門家
+
+**責任**:
+- TypeScriptエラー解決
+- ビルドエラー修正
+- 依存関係の問題修正
+- 設定エラー解決
+- 最小限の差分でエラーを修正
+- アーキテクチャの変更は行わない
+
+**アーティファクト**:
+- `aidlc-docs/plans/build_error_<unit-name>_resolution_report.md` - ビルドエラー解決レポート
+- `aidlc-docs/plans/build_error_<unit-name>_fixed_errors.md` - 修正したエラーのリスト
+
+**参照**: `.cursor/commands/aidlc-code-generation.md`, `.cursor/commands/aidlc-build-fix.md`
+
+### コードレビュー専門家（Code Reviewer）
+
+**実装場所**: `aidlc-code-generation`コマンド（ステップ10）、`aidlc-code-review`コマンド
+
+**役割**: 上級コードレビュアーで、コード品質とセキュリティの高い基準を確保
+
+**責任**:
+- 生成されたコードの品質、セキュリティ、保守性をレビュー
+- コード品質の問題を特定
+- パフォーマンスの問題を特定
+- ベストプラクティスの推奨
+
+**アーティファクト**:
+- `aidlc-docs/plans/code_review_<unit-name>_report.md` - コードレビューレポート
+- `aidlc-docs/plans/code_review_<unit-name>_fixes.md` - 修正提案
+
+**参照**: `.cursor/commands/aidlc-code-generation.md`, `.cursor/commands/aidlc-code-review.md`
+
+### セキュリティ専門家（Security Reviewer）
+
+**実装場所**: `aidlc-code-generation`コマンド（ステップ11）、`aidlc-security-review`コマンド
+
+**役割**: Webアプリケーションの脆弱性を特定し、修正する専門家
+
+**責任**:
+- OWASP Top 10と一般的なセキュリティ問題の特定
+- ハードコードされた秘密情報の検出
+- 入力検証の確認
+- 脆弱性パターンの検出
+
+**アーティファクト**:
+- `aidlc-docs/plans/security_review_<unit-name>_report.md` - セキュリティレビューレポート
+- `aidlc-docs/plans/security_review_<unit-name>_vulnerabilities.md` - 脆弱性リストと修正提案
+
+**参照**: `.cursor/commands/aidlc-code-generation.md`, `.cursor/commands/aidlc-security-review.md`
+
+## モデル選択戦略
+
+Commands内で専門家の役割を果たす際のモデル選択戦略：
+
+- **Haiku 4.5**: 頻繁に呼び出される軽量タスク、ペアプログラミング、単純なタスク
+- **Sonnet 4.5**: 主要な開発作業、複雑なコーディングタスク、TDD、ビルドエラー解決
+- **Opus 4.5**: 複雑なアーキテクチャ決定、最大の推論要件、研究と分析タスク、コードレビュー、セキュリティレビュー、実装計画
+
+### 専門家別モデル選択（参考）
+
+| 専門家 | 推奨モデル | 理由 |
+|--------|----------|------|
+| コードレビュー専門家 | Opus 4.5 | 深い推論と多角的な分析が必要 |
+| セキュリティ専門家 | Opus 4.5 | 最大の推論要件、セキュリティ分析 |
+| TDD専門家 | Sonnet 4.5 | 主要な開発作業、複雑なコーディングタスク |
+| ビルドエラー解決専門家 | Sonnet 4.5 | 主要な開発作業、複雑なコーディングタスク |
+| アーキテクト | Opus 4.5 | 複雑なアーキテクチャ決定 |
+| 計画スペシャリスト | Opus 4.5 | 最大の推論要件、複雑な分析 |
+
+**注意**: モデル選択は、Cursorの設定や使用するコマンドによって異なる場合があります。Commands内で専門家の役割を果たす際は、タスクの複雑さに応じて適切なモデルを選択してください。
+
+## 並列タスク実行
+
+独立した操作は常に並列実行します：
+
+```markdown
+# ✅ 良い例: 並列実行
+3つのエージェントを並列で起動:
+1. エージェント1: auth.tsのセキュリティ分析
+2. エージェント2: キャッシュシステムのパフォーマンスレビュー
+3. エージェント3: utils.tsの型チェック
+```
+
 ## 共通原則
 
 ### 計画ファーストアプローチ
@@ -139,16 +290,24 @@ AI-DLCは、AIが主導する開発ライフサイクル手法です。従来の
 ### トレーサビリティ
 すべてのアーティファクトはリンクされ、前後のトレーサビリティが確保されます（例：ドメインモデル要素とUser Storiesの関連付け）。
 
-## エージェント間の連携
+## Commands間の連携
 
 1. **Inception → Construction**: User StoriesとUnitsがDomain Designの入力となる
 2. **Construction → Operations**: Logical DesignとCodeがDeployment Unitsの入力となる
 3. **Operations → Construction**: 監視データが改善提案としてConstruction Phaseにフィードバックされる
-4. **Modification → Construction/Operations**: 改修計画に基づいて、Constructionエージェント（実装修正）やOperationsエージェント（設定変更）に作業を引き継ぐ
+4. **Modification → Construction/Operations**: 改修計画に基づいて、Constructionコマンド（実装修正）やOperationsコマンド（設定変更）に作業を引き継ぐ
+5. **Inception（計画スペシャリスト） → Construction**: 実装計画がConstruction Phaseの入力となる
+6. **Architecture（アーキテクト） → Construction**: アーキテクチャ決定がLogical Designの入力となる
+7. **Code Generation（TDD専門家）**: コード生成時にTDD専門家としてテストファーストの方法論を適用
+8. **Code Generation（ビルドエラー解決専門家）**: ビルドエラー発生時にビルドエラー解決専門家としてエラーを修正
+9. **Code Generation（コードレビュー専門家）**: コード生成後にコードレビュー専門家としてレビューを実行
+10. **Code Generation（セキュリティ専門家）**: コード生成後にセキュリティ専門家としてセキュリティレビューを実行
 
 ## 使用方法
 
-各エージェントは、対応するコマンド（`.cursor/commands/`内で定義）を通じて起動されます。エージェントは自動的に適切な役割を引き受け、計画を作成し、承認を待ちます。
+各専門家の役割は、対応するコマンド（`.cursor/commands/`内で定義）内で実装されています。Commandsを実行すると、自動的に適切な専門家の役割を引き受け、計画を作成し、承認を待ちます。
+
+詳細は、各コマンドファイル（`.cursor/commands/`）を参照してください。
 
 ## 重要な原則
 
