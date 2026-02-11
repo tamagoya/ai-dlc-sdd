@@ -28,7 +28,6 @@
 
 - [x] `cursor/commands/aidlc-code-review.md` - コードレビューコマンド
 - [x] `cursor/commands/aidlc-security-review.md` - セキュリティレビューコマンド
-- [x] `cursor/commands/aidlc-test-coverage.md` - テストカバレッジ分析コマンド
 - [x] `cursor/commands/aidlc-build-fix.md` - ビルドエラー修正コマンド
 
 ### ✅ 既存コマンドの拡張

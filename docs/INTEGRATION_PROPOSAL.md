@@ -126,7 +126,6 @@ cursor/hooks/hooks.json
 cursor/commands/
 ├── aidlc-code-review.md    # コードレビュー（/aidlc-code-review）
 ├── aidlc-security-review.md # セキュリティレビュー（/aidlc-security-review）
-├── aidlc-test-coverage.md  # テストカバレッジ分析（/aidlc-test-coverage）
 └── aidlc-build-fix.md      # ビルドエラー修正（/aidlc-build-fix）
 ```
 
@@ -204,7 +203,6 @@ cursor/commands/
 2. **追加コマンド**
    - `aidlc-code-review.md`
    - `aidlc-security-review.md`
-   - `aidlc-test-coverage.md`
 
 ## 統合のメリット
 

@@ -76,7 +76,6 @@ Copy-Item "C:\path\to\cursor\commands\*.md" -Destination ".cursor\commands\aidlc
     └── aidlc/
         ├── aidlc-setup.md
         ├── aidlc-inception.md
-        ├── aidlc-units.md
         ├── aidlc-brownfield.md
         ├── aidlc-domain-model.md
         ├── aidlc-architecture.md
@@ -181,15 +180,7 @@ UNITS/                   # Units定義
 - Measurement Criteria（測定基準）の定義
 - Suggested Bolts（推奨ボルト）の生成
 
-### 3. Units作成（オプション）
-
-User StoriesをUnitsにグループ化します：
-
-```
-/aidlc-units
-```
-
-### 4. Construction Phase（構築フェーズ）
+### 3. Construction Phase（構築フェーズ）
 
 #### Domain Model作成
 
@@ -223,7 +214,7 @@ Infrastructure as CodeとREST APIを生成します：
 /aidlc-iac-apis "レコメンデーションアルゴリズム" terraform
 ```
 
-### 5. Operations Phase（運用フェーズ）
+### 4. Operations Phase（運用フェーズ）
 
 #### デプロイメント
 
@@ -272,19 +263,17 @@ Brown-Field分析後、通常のConstruction Phaseを実行します。
    ↓
 2. /aidlc-inception "<product-description>"
    ↓
-3. /aidlc-units (オプション)
+3. /aidlc-domain-model <unit-name>
    ↓
-4. /aidlc-domain-model <unit-name>
+4. /aidlc-architecture <unit-name>
    ↓
-5. /aidlc-architecture <unit-name>
+5. /aidlc-code-generation <unit-name>
    ↓
-6. /aidlc-code-generation <unit-name>
+6. /aidlc-iac-apis <unit-name> <tool>
    ↓
-7. /aidlc-iac-apis <unit-name> <tool>
+7. /aidlc-deployment <unit-name> <environment>
    ↓
-8. /aidlc-deployment <unit-name> <environment>
-   ↓
-9. /aidlc-monitoring <unit-name>
+8. /aidlc-monitoring <unit-name>
 ```
 
 ### Brown-Field開発フロー
@@ -305,7 +294,6 @@ Brown-Field分析後、通常のConstruction Phaseを実行します。
 |---------|------|---------|
 | `/aidlc-setup` | プロジェクトの初期セットアップ | Setup |
 | `/aidlc-inception` | IntentをUser StoriesとUnitsに分解 | Inception |
-| `/aidlc-units` | User StoriesをUnitsにグループ化 | Inception |
 | `/aidlc-brownfield` | 既存コードの分析とモデル化 | Construction (Brown-Field) |
 | `/aidlc-domain-model` | Domain Designの作成 | Construction |
 | `/aidlc-architecture` | Logical Designの作成 | Construction |

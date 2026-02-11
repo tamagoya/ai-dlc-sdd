@@ -12,9 +12,6 @@
 ### `@aidlc-inception "<product-description>"`
 IntentをUser StoriesとUnitsに分解します。
 
-### `@aidlc-units [user-stories-file]`
-User StoriesをUnitsにグループ化します。
-
 ## Construction Phase（構築フェーズ）
 
 ### `@aidlc-brownfield <existing-code-path>`
