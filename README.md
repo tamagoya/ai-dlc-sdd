@@ -20,112 +20,85 @@ AI-DLCは、AIが主導する開発ライフサイクル手法です。従来の
 
 ### 前提条件
 
-- [Cursor](https://cursor.sh/) エディタがインストールされていること
-- プロジェクトのルートディレクトリにアクセスできること
+以下のいずれかのツールがインストールされていること：
+- [Cursor](https://cursor.sh/) エディタ
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI
 
-### 導入ステップ
+### 導入ステップ（Cursor）
 
 #### 1. フレームワークファイルのコピー
 
-このリポジトリから、以下のファイルとディレクトリを自分のプロジェクトにコピーします：
-
 ```bash
-# プロジェクトルートに移動
 cd /path/to/your/project
 
-# .cursorディレクトリが存在しない場合は作成
 mkdir -p .cursor
-
-# AGENTS.mdファイルをコピー（専門家の役割定義を含む）
 cp /path/to/ai-dlc-sdd/cursor/AGENTS.md .cursor/
 
-# コマンドディレクトリを作成
 mkdir -p .cursor/commands/aidlc
-
-# コマンドファイルをコピー
 cp /path/to/ai-dlc-sdd/cursor/commands/*.md .cursor/commands/aidlc/
 ```
 
-または、Windows PowerShellの場合：
+#### 2. 使用方法
 
-```powershell
-# プロジェクトルートに移動
-cd C:\path\to\your\project
-
-# .cursorディレクトリが存在しない場合は作成
-New-Item -ItemType Directory -Force -Path .cursor
-
-# AGENTS.mdファイルをコピー（専門家の役割定義を含む）
-Copy-Item "C:\path\to\ai-dlc-sdd\cursor\AGENTS.md" -Destination ".cursor\"
-
-# コマンドディレクトリを作成
-New-Item -ItemType Directory -Force -Path .cursor\commands\aidlc
-
-# コマンドファイルをコピー
-Copy-Item "C:\path\to\cursor\commands\*.md" -Destination ".cursor\commands\aidlc\"
-```
-
-#### 2. コマンドファイルの確認
-
-コピー後、以下のファイルが存在することを確認してください：
+Cursorエディタのチャットで `@` に続けてコマンド名を入力：
 
 ```
-.cursor/
-├── AGENTS.md
-└── commands/
-    └── aidlc/
-        ├── aidlc-setup.md
-        ├── aidlc-inception.md
-        ├── aidlc-brownfield.md
-        ├── aidlc-domain-model.md
-        ├── aidlc-architecture.md
-        ├── aidlc-code-generation.md
-        ├── aidlc-iac-apis.md
-        ├── aidlc-deployment.md
-        ├── aidlc-monitoring.md
-        └── README.md
+@aidlc-setup
+@aidlc-inception "プロダクトの説明"
 ```
 
-#### 3. Cursorでの使用
+### 導入ステップ（Claude Code）
 
-コマンドファイルをコピーした後、Cursorエディタで以下のようにコマンドを使用できます：
+#### 1. フレームワークファイルのコピー
+
+```bash
+cd /path/to/your/project
+
+# コマンドをコピー
+mkdir -p .claude/commands
+cp /path/to/ai-dlc-sdd/claude-code/commands/*.md .claude/commands/
+
+# ルールをコピー
+mkdir -p .claude/rules
+cp /path/to/ai-dlc-sdd/claude-code/rules/*.md .claude/rules/
+
+# CLAUDE.md をプロジェクトルートにコピー
+cp /path/to/ai-dlc-sdd/claude-code/CLAUDE.md ./CLAUDE.md
+```
+
+#### 2. 使用方法
+
+Claude Codeのチャットで `/` に続けてコマンド名を入力：
 
 ```
 /aidlc-setup
 /aidlc-inception "プロダクトの説明"
 ```
 
-Cursorは `.cursor/commands/` ディレクトリ内の `.md` ファイルを自動的に認識し、`/` 記号に続けてファイル名（拡張子なし）を入力することでコマンドとして使用できます。
+### Cursor / Claude Code 互換性
 
-#### 4. プロジェクト構造の初期化（オプション）
+両ツールで**同じプロジェクト**を扱えます。生成されるアーティファクト（`aidlc-docs/`、`BACKEND/`等）はすべて共通です。
 
-フレームワークを使用する前に、プロジェクト構造を初期化することを推奨します：
+| 項目 | Cursor | Claude Code |
+|------|--------|-------------|
+| コマンド呼び出し | `@aidlc-*` | `/aidlc-*` |
+| コマンド配置先 | `.cursor/commands/` | `.claude/commands/` |
+| ルール配置先 | `.cursor/rules/*.mdc` | `.claude/rules/*.md` |
+| プロジェクト設定 | `.cursorrules` 等 | `CLAUDE.md` |
+| 生成アーティファクト | 同一 | 同一 |
+
+### プロジェクト構造の初期化
+
+フレームワーク導入後、最初に以下を実行してプロジェクト構造を初期化してください：
 
 ```
 /aidlc-setup
 ```
 
-このコマンドは、必要なディレクトリ構造を自動的に作成します。
-
 ### カスタマイズ
 
-コマンドファイル（`.cursor/commands/aidlc/*.md`）を編集することで、プロジェクトの要件に合わせてフレームワークをカスタマイズできます。
-
-### トラブルシューティング
-
-#### コマンドが認識されない場合
-
-1. `.cursor/commands/aidlc/` ディレクトリが正しく作成されているか確認
-2. コマンドファイルが `.md` 拡張子で保存されているか確認
-3. Cursorエディタを再起動
-
-#### パスの問題
-
-Windowsでパスに日本語が含まれる場合、PowerShellのエンコーディング設定を確認してください：
-
-```powershell
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-```
+- Cursor: `.cursor/commands/aidlc/*.md` を編集
+- Claude Code: `.claude/commands/*.md` を編集
 
 ## プロジェクト構造
 
@@ -357,7 +330,11 @@ Brown-Field分析後、通常のConstruction Phaseを実行します。
 
 ## 専門家の役割
 
-詳細な専門家の役割定義については、[.cursor/AGENTS.md](cursor/AGENTS.md)を参照してください。専門家の役割は、Commands（`.cursor/commands/`）内で実装されています。
+詳細な専門家の役割定義については、以下を参照してください：
+- Cursor版: [cursor/AGENTS.md](cursor/AGENTS.md)
+- Claude Code版: [claude-code/AGENTS.md](claude-code/AGENTS.md)
+
+専門家の役割は、各コマンド内で実装されています。
 
 ## 参考資料
 
