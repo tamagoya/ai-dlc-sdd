@@ -17,6 +17,7 @@ AI-DLCのコマンドは `/aidlc-*` で利用できます。詳細は `.claude/c
 | `/aidlc-domain-model` | Construction | DDD基盤のDomain Design作成 |
 | `/aidlc-architecture` | Construction | Logical Design・ADR作成 |
 | `/aidlc-code-generation` | Construction | TDDベースのコード生成 |
+| `/aidlc-fullflow-prototyping` | Construction | 高速プロトタイピング用：Domain Model→Architecture→Code Generation を一気通貫実行（Unit単位で成果物を分割しない、ユーザー承認不要、引数不要） |
 | `/aidlc-iac-apis` | Construction | IaCとREST API生成 |
 | `/aidlc-deployment` | Operations | パッケージ化とデプロイ |
 | `/aidlc-monitoring` | Operations | 監視・メトリクス設定 |

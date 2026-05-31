@@ -26,6 +26,9 @@ Domain DesignをLogical Designに変換し、NFRsを満たすためのアーキ�
 ### `/aidlc-code-generation <unit-name>`
 Domain ModelとLogical Designに基づいて、実行可能なコードとユニットテストを生成します。
 
+### `/aidlc-fullflow-prototyping`
+**高速プロトタイピング用（`/aidlc-inception` 完了後に実行）。** Domain Model → Architecture → Code Generation を1コマンドで一気通貫実行します。引数は不要です。inceptionで作成された `aidlc-docs/design-artifacts/units/*.md` は入力として通常通り読み込みますが、**出力（成果物）は Unit ごとに分割せず**、すべて単一の `prototype` に統合して生成します。CRITICAL なセキュリティ脆弱性が出ない限りユーザー承認を求めずに完成（ビルド成功・テスト合格・カバレッジ80%以上）まで自律実行します。
+
 ### `/aidlc-iac-apis <unit-name> [tool]`
 Infrastructure as CodeとREST APIを生成します。`tool`は`terraform`、`cdk`、`cloudformation`のいずれかです。
 
